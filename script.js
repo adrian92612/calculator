@@ -1,8 +1,14 @@
+const maxDigit = 20; //digits displayed
+const colorChangeTimer = 200; //millisecond
+const display = document.querySelector(".display p");
+
+//************************ */
+//      Math Operations
+//************************ */
 let isOperating = false;
 let lastOperator = null;
 let number = "";
 let number2 = "";
-const maxDigit = 20;
 
 const add = () => parseFloat(number) + parseFloat(number2);
 const subtract = () => number - number2;
@@ -63,7 +69,9 @@ function getNumber(num) {
   }
 }
 
-const display = document.querySelector(".display p");
+//******************************* */
+//        Click Event Listeners
+//******************************* */
 
 const oneBtn = document.querySelector(".one");
 oneBtn.addEventListener("click", () => getNumber(1));
@@ -144,15 +152,168 @@ equalBtn.addEventListener("click", () => {
   operate();
 });
 
+//*********************** */
+//      Color & Sounds
+//*********************** */
+
 const allBtn = document.querySelectorAll(".btn");
 allBtn.forEach((element) => {
   element.addEventListener("click", () => {
+    playSound();
     element.classList.add("clicked");
-    window.setTimeout(() => element.classList.remove("clicked"), 200);
+    window.setTimeout(
+      () => element.classList.remove("clicked"),
+      colorChangeTimer
+    );
   });
 });
 
+function playSound() {
+  const typeSound = document.querySelector("#type-sound");
+  if (!typeSound) return;
+  typeSound.currentTime = 0;
+  typeSound.play();
+}
+
+function keyPressedColor(key) {
+  if (key == 1) {
+    playSound();
+    oneBtn.classList.add("clicked");
+    window.setTimeout(
+      () => oneBtn.classList.remove("clicked"),
+      colorChangeTimer
+    );
+  } else if (key == 2) {
+    playSound();
+    twoBtn.classList.add("clicked");
+    window.setTimeout(
+      () => twoBtn.classList.remove("clicked"),
+      colorChangeTimer
+    );
+  } else if (key == 3) {
+    playSound();
+    threeBtn.classList.add("clicked");
+    window.setTimeout(
+      () => threeBtn.classList.remove("clicked"),
+      colorChangeTimer
+    );
+  } else if (key == 4) {
+    playSound();
+    fourBtn.classList.add("clicked");
+    window.setTimeout(
+      () => fourBtn.classList.remove("clicked"),
+      colorChangeTimer
+    );
+  } else if (key == 5) {
+    playSound();
+    fiveBtn.classList.add("clicked");
+    window.setTimeout(
+      () => fiveBtn.classList.remove("clicked"),
+      colorChangeTimer
+    );
+  } else if (key == 6) {
+    playSound();
+    sixBtn.classList.add("clicked");
+    window.setTimeout(
+      () => sixBtn.classList.remove("clicked"),
+      colorChangeTimer
+    );
+  } else if (key == 7) {
+    playSound();
+    sevenBtn.classList.add("clicked");
+    window.setTimeout(
+      () => sevenBtn.classList.remove("clicked"),
+      colorChangeTimer
+    );
+  } else if (key == 8) {
+    playSound();
+    eightBtn.classList.add("clicked");
+    window.setTimeout(
+      () => eightBtn.classList.remove("clicked"),
+      colorChangeTimer
+    );
+  } else if (key == 9) {
+    playSound();
+    nineBtn.classList.add("clicked");
+    window.setTimeout(
+      () => nineBtn.classList.remove("clicked"),
+      colorChangeTimer
+    );
+  } else if (key == 0) {
+    playSound();
+    zeroBtn.classList.add("clicked");
+    window.setTimeout(
+      () => zeroBtn.classList.remove("clicked"),
+      colorChangeTimer
+    );
+  } else if (key == ".") {
+    playSound();
+    periodBtn.classList.add("clicked");
+    window.setTimeout(
+      () => periodBtn.classList.remove("clicked"),
+      colorChangeTimer
+    );
+  } else if (key == "+") {
+    playSound();
+    addBtn.classList.add("clicked");
+    window.setTimeout(
+      () => addBtn.classList.remove("clicked"),
+      colorChangeTimer
+    );
+  } else if (key == "-") {
+    playSound();
+    subtractBtn.classList.add("clicked");
+    window.setTimeout(
+      () => subtractBtn.classList.remove("clicked"),
+      colorChangeTimer
+    );
+  } else if (key == "*") {
+    playSound();
+    multiplyBtn.classList.add("clicked");
+    window.setTimeout(
+      () => multiplyBtn.classList.remove("clicked"),
+      colorChangeTimer
+    );
+  } else if (key == "/") {
+    playSound();
+    divideBtn.classList.add("clicked");
+    window.setTimeout(
+      () => divideBtn.classList.remove("clicked"),
+      colorChangeTimer
+    );
+  } else if (key == "%") {
+    playSound();
+    percentBtn.classList.add("clicked");
+    window.setTimeout(
+      () => percentBtn.classList.remove("clicked"),
+      colorChangeTimer
+    );
+  } else if (key == "c" || key == "C") {
+    playSound();
+    clearBtn.classList.add("clicked");
+    window.setTimeout(
+      () => clearBtn.classList.remove("clicked"),
+      colorChangeTimer
+    );
+  } else if (key == "Backspace") {
+    playSound();
+    delBtn.classList.add("clicked");
+    window.setTimeout(
+      () => delBtn.classList.remove("clicked"),
+      colorChangeTimer
+    );
+  } else if (key == "=") {
+    playSound();
+    equalBtn.classList.add("clicked");
+    window.setTimeout(
+      () => equalBtn.classList.remove("clicked"),
+      colorChangeTimer
+    );
+  }
+}
+
 window.addEventListener("keydown", (key) => {
+  keyPressedColor(key.key);
   if (
     key.key == 1 ||
     key.key == 2 ||
@@ -162,10 +323,11 @@ window.addEventListener("keydown", (key) => {
     key.key == 6 ||
     key.key == 7 ||
     key.key == 8 ||
-    key.key == 9 ||
-    key.key == 0
+    key.key == 9
   ) {
     getNumber(key.key);
+  } else if (key.key == 0) {
+    getNumber(0);
   } else if (key.key == ".") {
     if (display.innerText.includes(".")) return;
     getNumber(".");
