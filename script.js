@@ -2,6 +2,7 @@ let isOperating = false;
 let lastOperator = null;
 let number = "";
 let number2 = "";
+const maxDigit = 20;
 
 const add = () => parseFloat(number) + parseFloat(number2);
 const subtract = () => number - number2;
@@ -51,11 +52,12 @@ function operate() {
 }
 
 function getNumber(num) {
-  if (display.innerText.length > 20) return;
   if (!isOperating) {
+    if (number.length > maxDigit) return;
     number = `${number}${num}`;
     display.innerText = number;
   } else {
+    if (number2.length > maxDigit) return;
     number2 = `${number2}${num}`;
     display.innerText = number2;
   }
@@ -191,7 +193,7 @@ window.addEventListener("keydown", (key) => {
     percent();
   } else if (key.key == "Backspace") {
     del();
-  } else if (key.key == "c") {
+  } else if (key.key == "c" || key.key == "C") {
     clear();
   }
 });
