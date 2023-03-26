@@ -1,18 +1,49 @@
-const add = () => parseFloat(number) + parseFloat(number2);
-const subtract = () => number - number2;
-const multiply = () => number * number2;
-const divide = () => number / number2;
-
 let isOperating = false;
 let lastOperator = null;
 let number = "";
 let number2 = "";
 
+const add = () => parseFloat(number) + parseFloat(number2);
+const subtract = () => number - number2;
+const multiply = () => number * number2;
+const divide = () => number / number2;
+const percent = () => {
+  if (display.innerText == "") return;
+  lastOperator == multiply
+    ? (display.innerText = number * (number2 / 100))
+    : lastOperator == divide
+    ? (display.innerText = number / (number2 / 100))
+    : lastOperator == add
+    ? (display.innerText =
+        parseFloat(number) + parseFloat(number * (number2 / 100)))
+    : lastOperator == subtract
+    ? (display.innerText = number - number * (number2 / 100))
+    : (display.innerText = display.innerText / 100);
+  number = display.innerText;
+  number2 = "";
+};
+const del = () => {
+  if (!isOperating) {
+    display.innerText = display.innerText.slice(0, -1);
+    number = display.innerText;
+  } else {
+    display.innerText = display.innerText.slice(0, -1);
+    number2 = display.innerText;
+  }
+};
+
+const clear = () => {
+  number = "";
+  number2 = "";
+  isOperating = false;
+  lastOperator = null;
+  display.innerText = "";
+};
+
 function operate() {
   if (lastOperator == null || number2 == "") return;
-  console.log(number);
   number2 == 0 && lastOperator == divide
-    ? (display.innerText = "LOL")
+    ? (display.innerText = "L0L")
     : (display.innerText = lastOperator());
   number = lastOperator();
   number2 = "";
@@ -69,43 +100,13 @@ periodBtn.addEventListener("click", () => {
 });
 
 const delBtn = document.querySelector(".del");
-delBtn.addEventListener("click", () => {
-  if (!isOperating) {
-    console.log("asdf");
-    display.innerText = display.innerText.slice(0, -1);
-    number = display.innerText;
-  } else {
-    console.log("qwer");
-    display.innerText = display.innerText.slice(0, -1);
-    number2 = display.innerText;
-  }
-});
+delBtn.addEventListener("click", del);
 
 const percentBtn = document.querySelector(".percent");
-percentBtn.addEventListener("click", () => {
-  if (display.innerText == "") return;
-  lastOperator == multiply
-    ? (display.innerText = number * (number2 / 100))
-    : lastOperator == divide
-    ? (display.innerText = number / (number2 / 100))
-    : lastOperator == add
-    ? (display.innerText =
-        parseFloat(number) + parseFloat(number * (number2 / 100)))
-    : lastOperator == subtract
-    ? (display.innerText = number - number * (number2 / 100))
-    : (display.innerText = display.innerText / 100);
-  number = display.innerText;
-  number2 = "";
-});
+percentBtn.addEventListener("click", percent);
 
 const clearBtn = document.querySelector(".clear");
-clearBtn.addEventListener("click", () => {
-  number = "";
-  number2 = "";
-  isOperating = false;
-  lastOperator = null;
-  display.innerText = "";
-});
+clearBtn.addEventListener("click", clear);
 
 const addBtn = document.querySelector(".add");
 addBtn.addEventListener("click", () => {
@@ -139,6 +140,60 @@ const equalBtn = document.querySelector(".equal");
 equalBtn.addEventListener("click", () => {
   isOperating = false;
   operate();
+});
+
+const allBtn = document.querySelectorAll(".btn");
+allBtn.forEach((element) => {
+  element.addEventListener("click", () => {
+    element.classList.add("clicked");
+    window.setTimeout(() => element.classList.remove("clicked"), 200);
+  });
+});
+
+window.addEventListener("keydown", (key) => {
+  if (
+    key.key == 1 ||
+    key.key == 2 ||
+    key.key == 3 ||
+    key.key == 4 ||
+    key.key == 5 ||
+    key.key == 6 ||
+    key.key == 7 ||
+    key.key == 8 ||
+    key.key == 9 ||
+    key.key == 0
+  ) {
+    getNumber(key.key);
+  } else if (key.key == ".") {
+    if (display.innerText.includes(".")) return;
+    getNumber(".");
+  } else if (key.key == "+") {
+    if (isOperating) operate();
+    isOperating = true;
+    lastOperator = add;
+  } else if (key.key == "-") {
+    if (isOperating) operate();
+    isOperating = true;
+    lastOperator = subtract;
+  } else if (key.key == "*") {
+    if (isOperating) operate();
+    isOperating = true;
+    lastOperator = multiply;
+  } else if (key.key == "/") {
+    if (isOperating) operate();
+    isOperating = true;
+    lastOperator = divide;
+  } else if (key.key == "=") {
+    if (isOperating) operate();
+    isOperating = false;
+    lastOperator = null;
+  } else if (key.key == "%") {
+    percent();
+  } else if (key.key == "Backspace") {
+    del();
+  } else if (key.key == "c") {
+    clear();
+  }
 });
 
 // const operate = () => {
