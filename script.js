@@ -73,6 +73,11 @@ function getNumber(num) {
 //        Click Event Listeners
 //******************************* */
 
+// const numKeys = document.querySelectorAll(".num");
+// numKeys.forEach((e) =>
+//   e.addEventListener("click", (e) => getNumber(e.target.textContent))
+// );
+
 const oneBtn = document.querySelector(".one");
 oneBtn.addEventListener("click", () => getNumber(1));
 

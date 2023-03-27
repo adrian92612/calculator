@@ -79,9 +79,9 @@ body {
   font-weight: 900;
 }
 
-.btn.equal {
+/* .btn.equal {
   height: 46%;
-}
+} */
 
 .clicked {
   background-color: beige;
