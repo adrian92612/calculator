@@ -1,6 +1,7 @@
 const maxDigit = 15; //digits displayed
 const colorChangeTimer = 200; //millisecond
 const display = document.querySelector(".display p");
+const typeSound = document.querySelector("#type-sound");
 
 //********************************** */
 //            EVENT LISTENERS
@@ -155,7 +156,7 @@ allBtn.forEach((element) => {
 });
 
 function playSound() {
-  const typeSound = document.querySelector("#type-sound");
+  //   const typeSound = document.querySelector("#type-sound");
   if (!typeSound) return;
   typeSound.currentTime = 0;
   typeSound.play();
